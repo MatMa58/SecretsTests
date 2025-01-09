@@ -1,0 +1,18 @@
+from google.cloud import storage
+from google.oauth2 import service_account
+
+# This is a test key to check secret scanning detection
+private_key_id = '30a803f62a5184bc69fe46e20b00a2f7f6bf06b1'
+# this key is not real :)
+
+credentials = service_account.Credentials.from_service_account_info(
+    {'private_key_id': private_key_id, 'other_fields': 'XXX'}
+)
+
+# Creating a Google Cloud Storage Client
+storage_client = storage.Client(credentials=credentials)
+
+# Listing buckets in Google Cloud Storage
+buckets = storage_client.list_buckets()
+for bucket in buckets:
+    print(bucket.name)
